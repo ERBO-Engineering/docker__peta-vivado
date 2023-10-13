@@ -140,18 +140,18 @@ RUN adduser "$USER" dialout
 ## tftp server
 USER root
 RUN echo -e '\
-service tftp\n\
-    {\n\
-    protocol = udp\n\
-    port = 69\n\
-    socket_type = dgram\n\
-    wait = yes\n\
-    user = nobody\n\
-    server = /usr/sbin/in.tftpd\n\
-    server_args = /tftpboot\n\
-    disable = no\n\
-    }\n\
-' > /etc/xinetd.d/tftp
+	service tftp\n\
+	{\n\
+	protocol = udp\n\
+	port = 69\n\
+	socket_type = dgram\n\
+	wait = yes\n\
+	user = nobody\n\
+	server = /usr/sbin/in.tftpd\n\
+	server_args = /tftpboot\n\
+	disable = no\n\
+	}\n\
+	' > /etc/xinetd.d/tftp
 
 RUN mkdir /tftpboot
 RUN chmod -R 777 /tftpboot
@@ -203,7 +203,7 @@ RUN apt-get install -y \
 	python3-git \
 	python3-jinja2 \
 	python3-pexpect \
-   	perl \
+	perl \
 	liberror-perl \
 	haveged \
 	lib32stdc++6 \
@@ -331,9 +331,11 @@ RUN ./210_*.exp
 RUN ./220_*.exp "$XILINXMAIL" "$XILINXLOGIN"
 RUN /usr/local/xsetup --agree XilinxEULA,3rdPartyEULA --batch Install --config /home/$USER/.Xilinx/install_config.txt
 
+
+## SKIP THIS CAUSE WE ONLY INSTALL VIVADO
 ## install libs
-WORKDIR /tools/Xilinx/Vitis/$XILINXVERSION/scripts
-RUN sudo ./installLibs.sh
+# WORKDIR /tools/Xilinx/Vitis/$XILINXVERSION/scripts
+# RUN sudo ./installLibs.sh
 
 ## install JTAG driver
 WORKDIR /tools/Xilinx/Vivado/$XILINXVERSION/data/xicom/cable_drivers/lin64/install_script/install_drivers

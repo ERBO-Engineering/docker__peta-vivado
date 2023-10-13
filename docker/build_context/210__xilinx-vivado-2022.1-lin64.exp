@@ -44,6 +44,12 @@ set timeout -1
 match_max 100000
 
 spawn /usr/local/xsetup -b ConfigGen
+
+# choose 2 to inly install vivado
+expect -re "Please choose:"
+send -- "2\r"
+
+# choose 1 to install non enterprise edition of vivado
 expect -re "Please choose:"
 send -- "1\r"
 
